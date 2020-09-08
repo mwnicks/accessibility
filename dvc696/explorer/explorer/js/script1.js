@@ -194,7 +194,7 @@ if (Modernizr.inlinesvg) {
 
           d3.select('abbr').on('keypress',function(evt){
     				if(d3.event.keyCode==13 || d3.event.keyCode==32){
-    					$("#areaselect").val("").trigger('chosen:updated');
+    					$("#occselect").val("").trigger('chosen:updated');
     				}
     			})
 
@@ -900,30 +900,38 @@ if (Modernizr.inlinesvg) {
       face = d3.select("#share")
         .append("button")
         .attr("class", "social-btn")
-        .append("div")
-        .attr("id", "facebook")
         .attr('aria-label', 'Share your pay gap on Facebook')
         .append("a")
         .attr("href", "https://www.facebook.com/sharer/sharer.php?u=" + urlshare)
         .attr("target", "_blank")
+        .append("div")
+        .attr("id", "facebook")
 
       tweet = d3.select("#share")
         .append("button")
         .attr("class", "social-btn")
-        .append("div")
-        .attr("id", "twitter")
         .attr('aria-label', 'Share your pay gap on Twitter')
         .append("a")
-        .attr("href", encodeURI("https://twitter.com/intent/tweet?text=The gender pay gap for my occupation is " + dvc.format1(filteredsel[0].diffper) + "%. What is yours? " + urlshare))
+        .attr("href", encodeURI("https://twitter.com/intent/tweet?text=The gender pay gap for my occupation is " + dvc.format1(filteredsel[0].diffper) + "%. What is yours? " + "?url=" + urlshare))
         .attr("target", "_blank")
+        .append("div")
+        .attr("id", "twitter")
 
       linky = d3.select("#share")
         .append("button")
         .attr("class", "social-btn")
+        .attr('aria-label', 'Copy link to the page to your clipboard')
+        .on("click", copyLink)
         .append("div")
         .attr("id", "link")
-        .attr('aria-label', 'Copy link to the page to your clipboard')
-        .on("click", copyLink);
+        .append("div")
+        .attr("class","tippy")
+        .style('pointer-events','none')
+        .style("opacity",0)
+        .append('p')
+        .text("Copied to clipboard")
+        .attr('role','status');
+
 
 
       //Scroll to relevant
@@ -942,13 +950,20 @@ if (Modernizr.inlinesvg) {
       var url = (window.location != window.parent.location) ?
         document.referrer :
         document.location.href;
-
-
       document.body.appendChild(dummy);
       dummy.value = url;
       dummy.select();
       document.execCommand('copy');
       document.body.removeChild(dummy);
+
+      d3.select("div.tippy")
+        .transition()
+        .duration(200)
+        .style("opacity", 1)
+        .transition()
+        .delay(2000)
+        .duration(500)
+        .style("opacity", 0)
     }
 
 
