@@ -192,8 +192,9 @@ if (Modernizr.inlinesvg) {
           filteredocc = params.selected;
           filterfirst(filteredocc);
 
-          d3.select('abbr').on('keypress',function(evt){
+          d3.select('#occselect_chosen').select('abbr').on('keypress',function(evt){
     				if(d3.event.keyCode==13 || d3.event.keyCode==32){
+              d3.event.preventDefault();
     					$("#occselect").val("").trigger('chosen:updated');
     				}
     			})
@@ -209,9 +210,6 @@ if (Modernizr.inlinesvg) {
 
       });
 
-
-
-      // d3.select("#sel").select(".chosen-single").attr("tabindex", "0");
       d3.select('input.chosen-search-input').attr('id','chosensearchinput')
       d3.select('div.chosen-search').insert('label','input.chosen-search-input').attr('class','visuallyhidden').attr('for','chosensearchinput').html("Type to select an occupation")
 
@@ -254,6 +252,13 @@ if (Modernizr.inlinesvg) {
       }).on('change', function(evt, params) {
 
         if (typeof params != 'undefined') {
+          d3.select("#occgrpselect_chosen").select('abbr').on('keypress',function(evt){
+    				if(d3.event.keyCode==13 || d3.event.keyCode==32){
+              d3.event.preventDefault();
+    					$("#occgrpselect").val("").trigger('chosen:updated');
+    				}
+    			})
+
           hier = params.selected;
           linesubsel = lines.filter(function(d, i) {
             return d.hierarchy == hier;
@@ -265,8 +270,8 @@ if (Modernizr.inlinesvg) {
         }
 
       });
-
-
+      // d3.select("#occgrpselect_chosen").select('input').attr('id','occ_grp_input')//.attr('aria-hidden','true')
+      d3.select("#occgrpselect_chosen").select('div.chosen-search').insert('label','input.chosen-search-input').attr('class','visuallyhidden').attr('for','occ_grp_input').html("Choose an occupation group")
 
     } //End of make occupation
 
