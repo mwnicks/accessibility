@@ -211,7 +211,7 @@ if (Modernizr.inlinesvg) {
 
 
 
-      d3.select("#sel").select(".chosen-single").attr("tabindex", "0");
+      // d3.select("#sel").select(".chosen-single").attr("tabindex", "0");
       d3.select('input.chosen-search-input').attr('id','chosensearchinput')
       d3.select('div.chosen-search').insert('label','input.chosen-search-input').attr('class','visuallyhidden').attr('for','chosensearchinput').html("Type to select an occupation")
 
